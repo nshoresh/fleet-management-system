@@ -1,0 +1,4 @@
+#!/bin/sh
+php artisan serve --port=3304 --host=localhost
+
+# php artisan octane:start --port=33034

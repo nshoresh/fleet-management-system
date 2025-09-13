@@ -1,0 +1,30 @@
+#!/bin/bash
+set -e
+
+# Wait for a few seconds to ensure all services are up
+sleep 5
+
+# Run database migrations if QUEUE_WORKER_RUN_MIGRATIONS is set to true
+# if [ "${QUEUE_WORKER_RUN_MIGRATIONS}" = "true" ]; then
+#     echo "Running database migrations..."
+#     php /var/www/artisan migrate --force
+# fi
+
+# Clear and cache routes and config if in production
+if [ "${APP_ENV}" = "production" ]; then
+    echo "Optimizing for production..."
+    php /var/www/artisan optimize
+fi
+
+# Create symbolic link for storage if needed
+if [ ! -f /var/www/public/storage ]; then
+    echo "Creating storage symlink..."
+    php /var/www/artisan storage:link
+fi
+
+# Give proper permissions to the Laravel storage logs directory
+mkdir -p /var/www/storage/logs
+chmod -R 775 /var/www/storage
+
+echo "Starting supervisor..."
+exec "$@"
