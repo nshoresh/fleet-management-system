@@ -2,6 +2,9 @@
 
 namespace App\Livewire\License;
 
+use Illuminate\Support\Facades\Auth;
+use App\Models\RouteType;
+use App\Models\VehicleMake;
 use App\Models\License;
 use App\Models\VehicleOwner;
 use App\Models\Vehicle;
@@ -37,6 +40,85 @@ class CreateLicense extends Component
         'license_application_id' => 'required|exists:license_applications,id',
     ];
 
+    /*public function mount()
+    {
+        // ✅ Prefill fields from LicenseApplication if vehicleId is passed
+        $vehicleId = request()->query('vehicleId');
+
+        if ($vehicleId) {
+            $licenseApp = LicenseApplication::with(['vehicle', 'licenseType'])
+                ->where('vehicle_id', $vehicleId)
+                ->latest()
+                ->first();
+
+            if ($licenseApp) {
+                $this->vehicle_id = $licenseApp->vehicle_id;
+                $this->vehicle_owners_id = $licenseApp->vehicle->vehicle_owner_id ?? null;
+                $this->registration_number = $licenseApp->vehicle->license_plate ?? '';
+                $this->license_type_id = $licenseApp->license_type_id;
+                $this->license_purpose_id = $licenseApp->purpose
+                    ? LicensePurpose::where('purpose_name', $licenseApp->purpose)->value('id')
+                    : null;
+                $this->license_application_id = $licenseApp->id;
+
+                // Dates
+                $this->license_start_date = $licenseApp->submission_date;
+                $this->license_end_date = $licenseApp->expiry_date ?? null;
+            }
+        }
+    }*/
+
+    public function mount($applicationId = null)
+    {
+        // ✅ Prefill fields from LicenseApplication if vehicleId is passed
+        $vehicleId = request()->query('vehicleId');
+        if ($applicationId) {
+            $licenseApp = LicenseApplication::with('vehicle')->findOrFail($applicationId);
+
+            $this->license_application_id = $licenseApp->id;
+            $this->vehicle_id = $licenseApp->vehicle_id;
+            $this->vehicle_owners_id = $licenseApp->vehicle->vehicle_owner_id ?? null;
+            $this->registration_number = optional($licenseApp->makeType)->name . ' ' .
+                                    optional($licenseApp->vehicle)->model . ' ' .
+                                    optional($licenseApp->vehicle)->year . ' ' .
+                                    optional($licenseApp->vehicle)->license_plate;
+
+            //$this->registration_number = $licenseApp->vehicle->license_plate ?? '';
+            $this->license_type_id = $licenseApp->license_type_id;
+            $this->license_purpose_id = $licenseApp->purpose
+                ? LicensePurpose::where('purpose_name', $licenseApp->purpose)->value('id')
+                : null;
+
+            $this->license_start_date = $licenseApp->submission_date;
+            $this->license_end_date = $licenseApp->expiry_date ?? null;
+        }
+        elseif ($vehicleId) {
+            // fallback if only vehicleId provided
+            $licenseApp = LicenseApplication::with('vehicle.make')
+            ->where('vehicle_id', $vehicleId)
+            ->latest()
+            ->first();
+            if ($licenseApp) {
+                $this->license_application_id = $licenseApp->id;
+                $this->vehicle_id = $licenseApp->vehicle_id;
+                $this->vehicle_owners_id = $licenseApp->vehicle->vehicle_owner_id ?? null;
+                $this->registration_number = optional($licenseApp->makeType)->name . ' ' .
+                                        optional($licenseApp->vehicle)->model . ' ' .
+                                        optional($licenseApp->vehicle)->year . ' ' .
+                                        optional($licenseApp->vehicle)->license_plate;
+
+                //$this->registration_number = $licenseApp->vehicle->license_plate ?? '';
+                $this->license_type_id = $licenseApp->license_type_id;
+                $this->license_purpose_id = $licenseApp->purpose
+                    ? LicensePurpose::where('purpose_name', $licenseApp->purpose)->value('id')
+                    : null;
+
+                $this->license_start_date = $licenseApp->submission_date;
+                $this->license_end_date = $licenseApp->expiry_date ?? null;
+            }
+        }
+    }
+
     public function store()
     {
         $this->validate();
@@ -56,17 +138,19 @@ class CreateLicense extends Component
 
         session()->flash('message', 'License created successfully.');
 
-        $this->reset();
+        return redirect()->route('admin.license.list'); // redirect instead of reset()
     }
 
     public function render()
     {
-        return view('livewire.license.create-license', [
+        return view('livewire.license.create-license', [ // ✅ Correct view for Admin
             'vehicleOwners' => VehicleOwner::all(),
             'vehicles' => Vehicle::all(),
             'licenseTypes' => LicenseType::all(),
             'licensePurposes' => LicensePurpose::all(),
             'routes' => Route::all(),
+            'route_types' => RouteType::all(),
+            'vehicleMakes' => VehicleMake::all(),
             'applications' => LicenseApplication::all(),
         ]);
     }

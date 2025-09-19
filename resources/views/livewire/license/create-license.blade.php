@@ -12,7 +12,7 @@
             <select wire:model="vehicle_owners_id" class="block w-full pl-10 border-gray-300 rounded-sm shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm">
                 <option value="">Select Owner</option>
                 @foreach ($vehicleOwners as $owner)
-                    <option value="{{ $owner->id }}">{{ $owner->name }}</option>
+                    <option value="{{ $owner->id }}" @if($vehicle_owners_id == $owner->id) selected @endif>{{ $owner->name }}</option>
                 @endforeach
             </select>
             @error('vehicle_owners_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -24,17 +24,16 @@
             <select wire:model="vehicle_id" class="block w-full pl-10 border-gray-300 rounded-sm shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm">
                 <option value="">Select Vehicle</option>
                 @foreach ($vehicles as $vehicle)
-                    <option value="{{ $vehicle->id }}">{{ $vehicle->license_plate }}</option>
+                    <option value="{{ $vehicle->id }}" @if($vehicle_id == $vehicle->id) selected @endif>{{ $vehicle->makeType->name }} - {{ $vehicle->license_plate }}</option>
                 @endforeach
             </select>
             @error('vehicle_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
         <!-- Registration Number -->
-
         <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">Registration Number</label>
-            <x-gold-text-input type="text" wire:model="registration_number" />
+            <x-gold-text-input type="text" wire:model="registration_number" placeholder="Enter registration number" />
             @error('registration_number') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
@@ -44,7 +43,7 @@
             <select wire:model="license_type_id" class="block w-full pl-10 border-gray-300 rounded-sm shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm">
                 <option value="">Select Type</option>
                 @foreach ($licenseTypes as $type)
-                    <option value="{{ $type->id }}">{{ $type->type_name }}</option>
+                    <option value="{{ $type->id }}" @if($license_type_id == $type->id) selected @endif>{{ $type->type_name }}</option>
                 @endforeach
             </select>
             @error('license_type_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -56,7 +55,7 @@
             <select wire:model="license_purpose_id" class="block w-full pl-10 border-gray-300 rounded-sm shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm">
                 <option value="">Select Purpose</option>
                 @foreach ($licensePurposes as $purpose)
-                    <option value="{{ $purpose->id }}">{{ $purpose->purpose_name }}</option>
+                    <option value="{{ $purpose->id }}" @if($license_purpose_id == $purpose->id) selected @endif>{{ $purpose->purpose_name }}</option>
                 @endforeach
             </select>
             @error('license_purpose_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -68,7 +67,7 @@
             <select wire:model="route_id" class="block w-full pl-10 border-gray-300 rounded-sm shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm">
                 <option value="">Select Route</option>
                 @foreach ($routes as $route)
-                    <option value="{{ $route->id }}">{{ $route->route_name }}</option>
+                    <option value="{{ $route->id }}" @if($route_id == $route->id) selected @endif>{{ $route->route_name }}</option>
                 @endforeach
             </select>
             @error('route_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -77,7 +76,7 @@
         <!-- Start Date -->
         <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
-            <x-gold-text-input type="date" wire:model="license_start_date"  />
+            <x-gold-text-input type="date" wire:model="license_start_date" />
             @error('license_start_date') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
@@ -98,21 +97,23 @@
             @error('license_status') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
-        <!-- Application -->
+        <!-- License Application -->
         <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">Application</label>
             <select wire:model="license_application_id" class="block w-full pl-10 border-gray-300 rounded-sm shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm">
                 <option value="">Select Application</option>
                 @foreach ($applications as $app)
-                    <option value="{{ $app->id }}">#{{ $app->id }} - {{ $app->created_at->toDateString() }}</option>
+                    <option value="{{ $app->id }}" @if($license_application_id == $app->id) selected @endif>
+                        #{{ $app->id }} - {{ $app->created_at->toDateString() }}
+                    </option>
                 @endforeach
             </select>
             @error('license_application_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
-        <!-- Submit Button - spans all columns -->
+        <!-- Submit Button -->
         <div class="col-span-1 md:col-span-2 lg:col-span-3 pt-4">
-            <x-gold-button type="submit" >
+            <x-gold-button type="submit">
                 Create License
             </x-gold-button>
         </div>

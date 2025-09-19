@@ -156,4 +156,10 @@ class LicenseApplication extends Model
 
         return $prefix . $year . '-' . $random;
     }
+
+    public function documents()
+    {
+        return $this->hasMany(LicenseDocument::class);
+    }
+
 }

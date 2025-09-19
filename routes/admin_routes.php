@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 // use Illuminatpe\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+//use App\Livewire\Admin\License\LicenseApplication;
 
 /*
 |--------------------------------------------------------------------------
@@ -205,15 +206,26 @@ Route::group(
                 Route::get('/register', \App\Livewire\License\CreateLicense::class)->name('license.create');
                 Route::get('/edit/{id}', \App\Livewire\License\EditLicense::class)->name('license.edit');
                 Route::get('/view/{id}', \App\Livewire\License\ViewLicense::class)->name('license.view');
+                
+                //Added By SON
+                Route::get('/licenses/create/{applicationId}', \App\Livewire\License\CreateLicense::class)->name('admin.licenses.create');
+
 
                 Route::prefix('applications')
                     ->group(function () {
-                        Route::get('/newApplications', \App\Livewire\License\LicenseApplications\LicenseApplicationList::class)->name('admin.license.applications');
+                        Route::get('/newApplications', \App\Livewire\License\LicenseApplications\LicenseApplicationList::class)
+                        ->name('admin.license.applications');
                     });
                 Route::prefix('applications')
                     ->group(function () {
-                        Route::get('/renewalApplications', \App\Livewire\License\LicenseApplications\RenewalApplications::class)->name('admin.license.renewals.applications');
+                        Route::get('/renewalApplications', \App\Livewire\License\LicenseApplications\RenewalApplications::class)
+                        ->name('admin.license.renewals.applications');
                     });
+                Route::prefix('applications')
+                    ->group(function () {
+                    Route::get('/admin/license-applications/{id}/review', \App\Livewire\License\LicenseApplications\ViewLicenseApplication::class)
+                    ->name('admin.license.applications.review');
+                });
             }
         );
     }

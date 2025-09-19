@@ -67,7 +67,7 @@
                                 <td class="px-6 py-4 font-medium text-gray-900">
                                     {{ $application->application_number }}
                                 </td>
-                                <td class="px-6 py-4">{{ $application->licenseType->name ?? 'N/A' }}</td>
+                                <td class="px-6 py-4">{{ $application->licenseType->type_name ?? 'N/A' }}</td>
                                 <td class="px-6 py-4">{{ $application->purpose ?? 'N/A' }}</td>
                                 <td class="px-6 py-4">{{ $application->submission_date }}</td>
                                 <td class="px-6 py-4">{{ $application->expiry_date ?? '-' }}</td>

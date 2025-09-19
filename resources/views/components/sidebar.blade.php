@@ -155,10 +155,9 @@ new class extends Component {
                         class="block px-3 py-2 ml-8 text-gray-600 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
                         New License
                     </x-sidebar-link>
-                    <x-sidebar-link route="admin.license.applications" wire:navigate
-                        class="block px-3 py-2 ml-8 text-gray-600 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
-                        License Applications
-                    </x-sidebar-link>
+
+                    <livewire:license.license-application-counter />
+                    
                     <x-sidebar-link route="admin.license.renewals.applications" wire:navigate
                         class="block px-3 py-2 ml-8 text-gray-600 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
                         Renewal Applications

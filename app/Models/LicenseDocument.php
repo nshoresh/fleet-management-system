@@ -17,4 +17,10 @@ class LicenseDocument extends Model
     {
         return $this->belongsTo(LicenseApplication::class);
     }
+
+    public function uploader()
+    {
+        return $this->belongsTo(User::class, 'uploaded_by');
+    }
+
 }
