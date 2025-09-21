@@ -84,7 +84,6 @@ class CreateLicense extends Component
         ]);
     }
 
-
     public function submitApplication()
     {
         $this->validate();
@@ -114,14 +113,17 @@ class CreateLicense extends Component
 
         $licenseApplication->save();
 
-
         // ✅ Handle file uploads if documents exist
         if ($this->supportingDocuments) {
             foreach ($this->supportingDocuments as $document) {
-                $path = $document->store('license_documents', 'public');
+                // Save file into storage/app/public/license_documents
+                // $path = $document->store('license_documents', 'public'); //<--Laravel’s store() method, which auto-generates a hashed/random filename.
+                $originalName = $document->getClientOriginalName();
+                $path = $document->storeAs('license_documents', $originalName, 'public'); //<--preserve the actual file name uploaded by the client
 
+                // Store relative path only ("license_documents/filename.pdf")
                 $licenseApplication->documents()->create([
-                    'file_path' => $path,
+                    'file_path'   => $path, // e.g. "license_documents/my_invoice.pdf"
                     'uploaded_by' => $user->id,
                 ]);
             }
@@ -131,5 +133,4 @@ class CreateLicense extends Component
 
         return redirect()->route('client.app.license_list');
     }
-
 }

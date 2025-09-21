@@ -54,6 +54,6 @@ class ViewVehicleRoutes extends Component
         return view('livewire.admin.vehicle-routes.view-vehicle-routes', [
             'province' => $this->province,
             //'districts' => $this->districts,
-        ])->layout('layouts.app');
+        ]);
     }
 }

@@ -62,7 +62,7 @@ class EditRole extends Component
     }
     public function render()
     {
-        return view('livewire.system.roles.edit-role')
-            ->layout('layouts.app');
+        return view('livewire.system.roles.edit-role');
+            //->layout('layouts.app');
     }
 }

@@ -8,6 +8,6 @@ class CreateDistrict extends Component
 {
     public function render()
     {
-        return view('livewire.admin.district.create-district')->layout('layouts.app');
+        return view('livewire.admin.district.create-district');
     }
 }

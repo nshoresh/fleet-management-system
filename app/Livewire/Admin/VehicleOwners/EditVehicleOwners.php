@@ -98,6 +98,6 @@ class EditVehicleOwners extends Component
 
     public function render()
     {
-        return view('livewire.admin.vehicle-owners.edit-vehicle-owners')->layout('layouts.app');
+        return view('livewire.admin.vehicle-owners.edit-vehicle-owners');
     }
 }

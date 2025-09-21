@@ -8,7 +8,7 @@ class ViewRole extends Component
 {
     public function render()
     {
-        return view('livewire.system.roles.view-role')
-            ->layout('layouts.app');
+        return view('livewire.system.roles.view-role');
+            //->layout('layouts.app');
     }
 }

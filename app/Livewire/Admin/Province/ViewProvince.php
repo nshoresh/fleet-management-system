@@ -68,6 +68,6 @@ class ViewProvince extends Component
         return view('livewire.admin.province.view-province', [
             'province' => $this->province,
             'districts' => $this->districts,
-        ])->layout('layouts.app');
+        ]);
     }
 }

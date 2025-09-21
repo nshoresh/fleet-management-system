@@ -264,6 +264,6 @@ class LicenseTable extends Component
             'routes' => $routes,
             'vehicles' => $vehicles,
             'vehicleOwners' => $vehicleOwners,
-        ])->layout('layouts.app');
+        ])/*->layout('layouts.app')*/;
     }
 }

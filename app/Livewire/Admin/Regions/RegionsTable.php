@@ -147,6 +147,6 @@ class RegionsTable extends Component
 
         return view('livewire.admin.regions.regions-table', [
             'regions' => $regions,
-        ])->layout('layouts.app');
+        ]);
     }
 }

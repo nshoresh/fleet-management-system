@@ -8,7 +8,7 @@ class UpdatePayment extends Component
 {
     public function render()
     {
-        return view('livewire.client.payments.update-payment')
-            ->layout('layouts.app');
+        return view('livewire.client.payments.update-payment');
+            //->layout('layouts.app');
     }
 }

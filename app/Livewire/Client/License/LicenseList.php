@@ -110,7 +110,7 @@ class LicenseList extends Component
 
         return view('livewire.client.license.license-list', [
             'licenseApplications' => $licenseApplications,
-        ]);
+        ])/*->layout('layouts.app')*/;
     }
 
 }

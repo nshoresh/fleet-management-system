@@ -8,6 +8,6 @@ class ViewDistrict extends Component
 {
     public function render()
     {
-        return view('livewire.admin.district.view-district')->layout('layouts.app');
+        return view('livewire.admin.district.view-district');
     }
 }

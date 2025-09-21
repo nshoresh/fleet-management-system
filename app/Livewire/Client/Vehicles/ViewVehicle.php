@@ -28,7 +28,7 @@ class ViewVehicle extends Component
     }
     public function render()
     {
-        return view('livewire.client.vehicles.view-vehicle')
-            ->layout('layouts.app');
+        return view('livewire.client.vehicles.view-vehicle');
+            //->layout('layouts.app');
     }
 }

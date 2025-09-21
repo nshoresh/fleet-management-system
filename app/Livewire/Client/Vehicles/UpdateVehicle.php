@@ -8,7 +8,7 @@ class UpdateVehicle extends Component
 {
     public function render()
     {
-        return view('livewire.client.vehicles.update-vehicle')
-            ->layout('layouts.app');
+        return view('livewire.client.vehicles.update-vehicle');
+            //->layout('layouts.app');
     }
 }

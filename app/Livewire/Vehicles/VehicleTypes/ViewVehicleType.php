@@ -8,6 +8,6 @@ class ViewVehicleType extends Component
 {
     public function render()
     {
-        return view('livewire.vehicles.vehicle-types.view-vehicle-type')->layout('layouts.app');
+        return view('livewire.vehicles.vehicle-types.view-vehicle-type')/*->layout('layouts.app')*/;
     }
 }

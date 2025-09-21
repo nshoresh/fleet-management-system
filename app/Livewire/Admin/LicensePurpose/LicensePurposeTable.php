@@ -45,6 +45,6 @@ class LicensePurposeTable extends Component
             })
                 ->orderBy($this->sortField, $this->sortDirection)
                 ->paginate(10)
-        ])->layout('layouts.app');
+        ]);
     }
 }

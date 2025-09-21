@@ -15,7 +15,6 @@ new class extends Component {
         $this->redirect('/', navigate: true);
     }
 }; ?>
-
 <div x-data="{
     // State management with localStorage
     reportsOpen: localStorage.getItem('reportsOpen') === 'true',
@@ -63,18 +62,19 @@ new class extends Component {
         }
     }
 }" class="flex flex-col h-full">
+
     <!-- Header -->
-    <div class="sticky top-0 z-10 flex items-center justify-between h-16 px-4 border-b bg-gray-50">
+    <div class="sticky top-0 z-10 flex items-center justify-between h-20 px-4 bg-white border-b">
         <span x-show="!sidebarCollapsed || isMobile"
-            class="px-4 text-lg font-bold text-yellow-600 transition-opacity duration-300">{{ config('app.name') }}</span>
+            class="text-lg font-bold text-yellow-600 transition-opacity duration-300">{{ config('app.name') }}</span>
         <div class="flex-shrink-0">
             <x-application-logo />
         </div>
         <!-- Collapse/Expand Button (Desktop only) -->
         <button @click="sidebarCollapsed = !sidebarCollapsed"
             class="hidden p-1 text-gray-500 rounded-md hover:bg-gray-100 focus:outline-none lg:block">
-            <svg x-show="!sidebarCollapsed" class="w-10 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="5"
+            <svg x-show="!sidebarCollapsed" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
             </svg>
             <svg x-show="sidebarCollapsed" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -82,33 +82,32 @@ new class extends Component {
             </svg>
         </button>
     </div>
-
     <!-- Navigation (Scrollable) -->
-    <nav class="flex-1 py-4 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+    <nav class="flex-1 py-4 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 bg-gray-800">
         <div class="py-1 space-y-1">
+
             <!-- Dashboard Link -->
-            <x-sidebar-link route="dashboard" wire:navigate
-                class="flex items-center w-full px-3 py-2 text-gray-700 rounded-md hover:bg-blue-50 hover:text-blue-700 group">
+            <a href="{{ route('dashboard') }}" wire:navigate
+                class="flex items-center w-full px-5 py-2 text-gray-300 rounded-md hover:bg-yellow-50 hover:text-yellow-700 group">
                 <svg class="w-5 h-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg" fill="none"
                     viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                 </svg>
                 <span x-show="!sidebarCollapsed || isMobile"
-                    class="ml-3 transition-opacity duration-300">Dashboard
-                </span>
-            </x-sidebar-link>
+                    class="ml-2 transition-opacity duration-300">Dashboard</span>
+            </a>
 
             <!-- Reports -->
             <div class="py-1">
                 <button @click="toggleDropdown('reportsOpen')"
-                    class="flex items-center w-full px-3 py-2 text-gray-700 transition duration-150 rounded-md hover:bg-yellow-50 hover:text-yellow-700 group">
+                    class="flex items-center w-full px-5 py-2 text-gray-300 transition duration-150 rounded-md hover:bg-yellow-50 hover:text-yellow-700 group">
                     <svg class="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                     </svg>
                     <span x-show="!sidebarCollapsed || isMobile"
-                        class="ml-3 transition-opacity duration-300">Reports
+                        class="ml-2 transition-opacity duration-300">Reports
                     </span>
                     <svg x-show="!sidebarCollapsed || isMobile" :class="{ 'rotate-90': reportsOpen }"
                         class="w-4 h-4 ml-auto transition-transform" fill="none" stroke="currentColor"
@@ -124,14 +123,12 @@ new class extends Component {
             <!-- Licensing -->
             <div class="py-1">
                 <button @click="toggleDropdown('licenseManagement')"
-                    class="flex items-center w-full px-3 py-2 text-gray-700 transition duration-150 rounded-md hover:bg-yellow-50 hover:text-yellow-700 group">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="w-5 h-5 text-yellow-600" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd"
-                            d="M10.5 1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4H1.5a.5.5 0 0 1 0-1H10V1.5a.5.5 0 0 1 .5-.5M12 3.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm-6.5 2A.5.5 0 0 1 6 6v1.5h8.5a.5.5 0 0 1 0 1H6V10a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5M1 8a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2A.5.5 0 0 1 1 8m9.5 2a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V13H1.5a.5.5 0 0 1 0-1H10v-1.5a.5.5 0 0 1 .5-.5m1.5 2.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5" />
+                    class="flex items-center w-full px-5 py-2 text-gray-300 transition duration-150 rounded-md hover:bg-yellow-50 hover:text-yellow-700 group">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-yellow-600">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
                     </svg>
                     <span x-show="!sidebarCollapsed || isMobile"
-                        class="ml-3 transition-opacity duration-300">Licensing</span>
+                        class="ml-2 transition-opacity duration-300">Licensing</span>
                     <svg x-show="!sidebarCollapsed || isMobile" :class="{ 'rotate-90': licenseManagement }"
                         class="w-4 h-4 ml-auto transition-transform" fill="none" stroke="currentColor"
                         viewBox="0 0 24 24">
@@ -140,26 +137,26 @@ new class extends Component {
                 </button>
                 <div x-show="(!sidebarCollapsed || isMobile) && licenseManagement" x-collapse class="mt-1 space-y-1">
                     <x-sidebar-link route="license" wire:navigate
-                        class="block px-3 py-2 ml-8 text-gray-600 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
+                        class="block px-3 py-2 ml-8 text-gray-300 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
                         License List
                     </x-sidebar-link>
                     <x-sidebar-link route="admin.license-types" wire:navigate
-                        class="block px-3 py-2 ml-8 text-gray-600 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
+                        class="block px-3 py-2 ml-8 text-gray-300 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
                         License Type
                     </x-sidebar-link>
                     <x-sidebar-link route="admin.license-purpose" wire:navigate
-                        class="block px-3 py-2 ml-8 text-gray-600 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
+                        class="block px-3 py-2 ml-8 text-gray-300 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
                         License Purpose
                     </x-sidebar-link>
                     <x-sidebar-link route="license.create" wire:navigate
-                        class="block px-3 py-2 ml-8 text-gray-600 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
+                        class="block px-3 py-2 ml-8 text-gray-300 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
                         New License
                     </x-sidebar-link>
 
                     <livewire:license.license-application-counter />
                     
                     <x-sidebar-link route="admin.license.renewals.applications" wire:navigate
-                        class="block px-3 py-2 ml-8 text-gray-600 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
+                        class="block px-3 py-2 ml-8 text-gray-300 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
                         Renewal Applications
                     </x-sidebar-link>
                 </div>
@@ -168,17 +165,11 @@ new class extends Component {
             <!-- Client Management -->
             <div class="py-1">
                 <button @click="toggleDropdown('clientManagementOpen')"
-                    class="flex items-center w-full px-3 py-2 text-gray-700 transition duration-150 rounded-md hover:bg-yellow-50 hover:text-yellow-700 group">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="w-5 h-5 text-yellow-600" viewBox="0 0 16 16">
-                        <path
-                            d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0" />
-                        <path
-                            d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0" />
-                        <path
-                            d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0" />
+                    class="flex items-center w-full px-5 py-2 text-gray-300 transition duration-150 rounded-md hover:bg-yellow-50 hover:text-yellow-700 group">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-yellow-600">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
                     </svg>
-                    <span x-show="!sidebarCollapsed || isMobile" class="ml-3 transition-opacity duration-300">Client
+                    <span x-show="!sidebarCollapsed || isMobile" class="ml-2 transition-opacity duration-300">Client
                         Management</span>
                     <svg x-show="!sidebarCollapsed || isMobile" :class="{ 'rotate-90': clientManagementOpen }"
                         class="w-4 h-4 ml-auto transition-transform" fill="none" stroke="currentColor"
@@ -189,7 +180,7 @@ new class extends Component {
                 <div x-show="(!sidebarCollapsed || isMobile) && clientManagementOpen" x-collapse
                     class="mt-1 space-y-1">
                     <x-sidebar-link route="admin.vehicle-owners" wire:navigate
-                        class="block px-3 py-2 ml-8 text-gray-600 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
+                        class="block px-3 py-2 ml-8 text-gray-300 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
                         Vehicle Owners
                     </x-sidebar-link>
                 </div>
@@ -198,14 +189,14 @@ new class extends Component {
             <!-- Vehicle Management -->
             <div class="py-1">
                 <button @click="toggleDropdown('settingsOpen')"
-                    class="flex items-center w-full px-3 py-2 text-gray-700 transition duration-150 rounded-md hover:bg-yellow-50 hover:text-yellow-700 group">
+                    class="flex items-center w-full px-5 py-2 text-gray-300 transition duration-150 rounded-md hover:bg-yellow-50 hover:text-yellow-700 group">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="w-5 h-5 text-yellow-600" viewBox="0 0 16 16">
                         <path
                             d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z" />
                     </svg>
                     <span x-show="!sidebarCollapsed || isMobile"
-                        class="ml-3 transition-opacity duration-300">Management</span>
+                        class="ml-2 transition-opacity duration-300">Management</span>
                     <svg x-show="!sidebarCollapsed || isMobile" :class="{ 'rotate-90': settingsOpen }"
                         class="w-4 h-4 ml-auto transition-transform" fill="none" stroke="currentColor"
                         viewBox="0 0 24 24">
@@ -214,27 +205,27 @@ new class extends Component {
                 </button>
                 <div x-show="(!sidebarCollapsed || isMobile) && settingsOpen" x-collapse class="mt-1 space-y-1">
                     <x-sidebar-link route="admin.vehicle-classifications" wire:navigate
-                        class="block px-3 py-2 ml-8 text-gray-600 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
+                        class="block px-3 py-2 ml-8 text-gray-300 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
                         Vehicle Classification
                     </x-sidebar-link>
                     <x-sidebar-link route="admin.vehicle-routes.index" wire:navigate
-                        class="block px-3 py-2 ml-8 text-gray-600 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
+                        class="block px-3 py-2 ml-8 text-gray-300 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
                         Vehicle Routes
                     </x-sidebar-link>
                     <x-sidebar-link route="vehicles.vehicle-types" wire:navigate
-                        class="block px-3 py-2 ml-8 text-gray-600 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
+                        class="block px-3 py-2 ml-8 text-gray-300 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
                         Vehicle Types
                     </x-sidebar-link>
                     <x-sidebar-link route="vehicles.owner-types" wire:navigate
-                        class="block px-3 py-2 ml-8 text-gray-600 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
+                        class="block px-3 py-2 ml-8 text-gray-300 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
                         Vehicle Owner Type
                     </x-sidebar-link>
                     <x-sidebar-link route="vehicles.makes" wire:navigate
-                        class="block px-3 py-2 ml-8 text-gray-600 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
+                        class="block px-3 py-2 ml-8 text-gray-300 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
                         Vehicle Make
                     </x-sidebar-link>
                     <x-sidebar-link route="vehicles.make-model" wire:navigate
-                        class="block px-3 py-2 ml-8 text-gray-600 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
+                        class="block px-3 py-2 ml-8 text-gray-300 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
                         Vehicle Make Model
                     </x-sidebar-link>
                 </div>
@@ -243,13 +234,13 @@ new class extends Component {
             <!-- System -->
             <div class="py-1">
                 <button @click="toggleDropdown('systemOpen')"
-                    class="flex items-center w-full px-3 py-2 text-gray-700 transition duration-150 rounded-md hover:bg-yellow-50 hover:text-yellow-700 group">
+                    class="flex items-center w-full px-5 py-2 text-gray-300 transition duration-150 rounded-md hover:bg-yellow-50 hover:text-yellow-700 group">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="w-5 h-5 text-yellow-600" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
                             d="M10.5 1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4H1.5a.5.5 0 0 1 0-1H10V1.5a.5.5 0 0 1 .5-.5M12 3.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm-6.5 2A.5.5 0 0 1 6 6v1.5h8.5a.5.5 0 0 1 0 1H6V10a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5M1 8a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2A.5.5 0 0 1 1 8m9.5 2a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V13H1.5a.5.5 0 0 1 0-1H10v-1.5a.5.5 0 0 1 .5-.5m1.5 2.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5" />
                     </svg>
-                    <span x-show="!sidebarCollapsed || isMobile" class="ml-3 transition-opacity duration-300">System
+                    <span x-show="!sidebarCollapsed || isMobile" class="ml-2 transition-opacity duration-300">System
                         Variables</span>
                     <svg x-show="!sidebarCollapsed || isMobile" :class="{ 'rotate-90': systemOpen }"
                         class="w-4 h-4 ml-auto transition-transform" fill="none" stroke="currentColor"
@@ -259,27 +250,27 @@ new class extends Component {
                 </button>
                 <div x-show="(!sidebarCollapsed || isMobile) && systemOpen" x-collapse class="mt-1 space-y-1">
                     <x-sidebar-link route="users" wire:navigate
-                        class="block px-3 py-2 ml-8 text-gray-600 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
+                        class="block px-3 py-2 ml-8 text-gray-300 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
                         User List
                     </x-sidebar-link>
                     <x-sidebar-link route="users.create" wire:navigate
-                        class="block px-3 py-2 ml-8 text-gray-600 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
+                        class="block px-3 py-2 ml-8 text-gray-300 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
                         New User
                     </x-sidebar-link>
                     <x-sidebar-link route="system.user-types" wire:navigate
-                        class="block px-3 py-2 ml-8 text-gray-600 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
+                        class="block px-3 py-2 ml-8 text-gray-300 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
                         User Types
                     </x-sidebar-link>
                     <x-sidebar-link route="system.regions" wire:navigate
-                        class="block px-3 py-2 ml-8 text-gray-600 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
+                        class="block px-3 py-2 ml-8 text-gray-300 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
                         Regions
                     </x-sidebar-link>
                     <x-sidebar-link route="system.provinces" wire:navigate
-                        class="block px-3 py-2 ml-8 text-gray-600 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
+                        class="block px-3 py-2 ml-8 text-gray-300 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
                         Province
                     </x-sidebar-link>
                     <x-sidebar-link route="system.district" wire:navigate
-                        class="block px-3 py-2 ml-8 text-gray-600 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
+                        class="block px-3 py-2 ml-8 text-gray-300 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
                         District
                     </x-sidebar-link>
                     <hr />
@@ -292,13 +283,13 @@ new class extends Component {
             <!-- System Security -->
             <div class="py-1">
                 <button @click="toggleDropdown('systemSecurityOpen')"
-                    class="flex items-center w-full px-3 py-2 text-gray-700 transition duration-150 rounded-md hover:bg-yellow-50 hover:text-yellow-700 group">
+                    class="flex items-center w-full px-5 py-2 text-gray-300 transition duration-150 rounded-md hover:bg-yellow-50 hover:text-yellow-700 group">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-yellow-600" width="16"
                         height="16" fill="currentColor" class="bi bi-shield" viewBox="0 0 16 16">
                         <path
                             d="M5.338 1.59a61 61 0 0 0-2.837.856.48.48 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.7 10.7 0 0 0 2.287 2.233c.346.244.652.42.893.533q.18.085.293.118a1 1 0 0 0 .101.025 1 1 0 0 0 .1-.025q.114-.034.294-.118c.24-.113.547-.29.893-.533a10.7 10.7 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.8 11.8 0 0 1-2.517 2.453 7 7 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7 7 0 0 1-1.048-.625 11.8 11.8 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 63 63 0 0 1 5.072.56" />
                     </svg>
-                    <span x-show="!sidebarCollapsed || isMobile" class="ml-3 transition-opacity duration-300">System
+                    <span x-show="!sidebarCollapsed || isMobile" class="ml-2 transition-opacity duration-300">System
                         Security</span>
                     <svg x-show="!sidebarCollapsed || isMobile" :class="{ 'rotate-90': systemSecurityOpen }"
                         class="w-4 h-4 ml-auto transition-transform" fill="none" stroke="currentColor"
@@ -308,19 +299,19 @@ new class extends Component {
                 </button>
                 <div x-show="(!sidebarCollapsed || isMobile) && systemSecurityOpen" x-collapse class="mt-1 space-y-1">
                     <x-sidebar-link route="system.roles" wire:navigate
-                        class="block px-3 py-2 ml-8 text-gray-600 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
+                        class="block px-3 py-2 ml-8 text-gray-300 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
                         Roles Management
                     </x-sidebar-link>
                     <x-sidebar-link route="system.permissions" wire:navigate
-                        class="block px-3 py-2 ml-8 text-gray-600 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
+                        class="block px-3 py-2 ml-8 text-gray-300 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
                         Permissions Management
                     </x-sidebar-link>
                     <x-sidebar-link route="settings" wire:navigate
-                        class="block px-3 py-2 ml-8 text-gray-600 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
+                        class="block px-3 py-2 ml-8 text-gray-300 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
                         Account Status
                     </x-sidebar-link>
                     <x-sidebar-link route="settings" wire:navigate
-                        class="block px-3 py-2 ml-8 text-gray-600 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
+                        class="block px-3 py-2 ml-8 text-gray-300 transition duration-150 rounded-md hover:bg-blue-50 hover:text-blue-700">
                         Password and Security
                     </x-sidebar-link>
                 </div>

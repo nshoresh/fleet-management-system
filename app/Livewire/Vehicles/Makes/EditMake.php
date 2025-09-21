@@ -59,6 +59,6 @@ class EditMake extends Component
     }
     public function render()
     {
-        return view('livewire.vehicles.makes.edit-make')->layout('layouts.app');
+        return view('livewire.vehicles.makes.edit-make')/*->layout('layouts.app')*/;
     }
 }

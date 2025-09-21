@@ -131,6 +131,6 @@ class DistrictTable extends Component
         return view('livewire.admin.district.district-table', [
             'districts' => $districts,
             'provinces' => $provinces,
-        ])->layout('layouts.app');
+        ]);
     }
 }

@@ -195,6 +195,6 @@ class LicenseApplicationList extends Component
             'applications' => $applications,
             'licenseTypes' => $licenseTypes,
             'vehicles' => $vehicles,
-        ])->layout('layouts.app');
+        ])/*->layout('layouts.app')*/;
     }
 }

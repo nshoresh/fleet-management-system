@@ -8,6 +8,6 @@ class EditLicenseTypes extends Component
 {
     public function render()
     {
-        return view('livewire.admin.license-types.edit-license-types')->layout('layouts.app');
+        return view('livewire.admin.license-types.edit-license-types');
     }
 }

@@ -66,7 +66,7 @@ class CreateVehicleClassification extends Component
 
     public function render()
     {
-        return view('livewire.admin.vehicle-classification.create-vehicle-classification')
-            ->layout('layouts.app');
+        return view('livewire.admin.vehicle-classification.create-vehicle-classification');
+            //->layout('layouts.app');
     }
 }

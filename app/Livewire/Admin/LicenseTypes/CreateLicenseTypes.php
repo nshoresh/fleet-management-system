@@ -8,6 +8,6 @@ class CreateLicenseTypes extends Component
 {
     public function render()
     {
-        return view('livewire.admin.license-types.create-license-types')->layout('layouts.app');
+        return view('livewire.admin.license-types.create-license-types');
     }
 }

@@ -8,6 +8,6 @@ class EditLicensePurpose extends Component
 {
     public function render()
     {
-        return view('livewire.admin.license-purpose.edit-license-purpose')->layout('layouts.app');
+        return view('livewire.admin.license-purpose.edit-license-purpose');
     }
 }

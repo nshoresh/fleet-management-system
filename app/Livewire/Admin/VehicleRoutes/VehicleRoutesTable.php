@@ -189,6 +189,6 @@ class VehicleRoutesTable extends Component
                 'routes' => $routes,
                 'routeTypes' => $this->routeTypes,
             ]
-        )->layout('layouts.app');
+        );
     }
 }

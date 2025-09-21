@@ -8,6 +8,6 @@ class EditVehicleType extends Component
 {
     public function render()
     {
-        return view('livewire.vehicles.vehicle-types.edit-vehicle-type')->layout('layouts.app');
+        return view('livewire.vehicles.vehicle-types.edit-vehicle-type')/*->layout('layouts.app')*/;
     }
 }

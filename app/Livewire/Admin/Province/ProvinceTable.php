@@ -186,6 +186,6 @@ class ProvinceTable extends Component
                 'provinces' => $provinces,
                 'regions' => $this->regions,
             ]
-        )->layout('layouts.app');
+        );
     }
 }

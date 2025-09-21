@@ -73,7 +73,7 @@ class CreateRole extends Component
 
     public function render()
     {
-        return view('livewire.system.roles.create-role')
-            ->layout('layouts.app');
+        return view('livewire.system.roles.create-role');
+            //->layout('layouts.app');
     }
 }

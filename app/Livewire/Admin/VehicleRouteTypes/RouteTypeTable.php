@@ -132,6 +132,6 @@ class RouteTypeTable extends Component
 
         return view('livewire.admin.vehicle-route-types.route-type-table', [
             'routeTypes' => $routeTypes,
-        ])->layout('layouts.app');
+        ])/*->layout('layouts.app')*/;
     }
 }

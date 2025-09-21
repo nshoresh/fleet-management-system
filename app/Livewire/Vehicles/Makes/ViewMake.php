@@ -29,6 +29,6 @@ class ViewMake extends Component
     }
     public function render()
     {
-        return view('livewire.vehicles.makes.view-make')->layout('layouts.app');
+        return view('livewire.vehicles.makes.view-make')/*->layout('layouts.app')*/;
     }
 }

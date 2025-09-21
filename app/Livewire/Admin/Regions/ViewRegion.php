@@ -8,6 +8,6 @@ class ViewRegion extends Component
 {
     public function render()
     {
-        return view('livewire.admin.regions.view-region')->layout('layouts.app');
+        return view('livewire.admin.regions.view-region');
     }
 }

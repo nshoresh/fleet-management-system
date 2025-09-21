@@ -185,6 +185,6 @@ class Create extends Component
 
     public function render()
     {
-        return view('livewire.vehicles.create')->layout('layouts.app');
+        return view('livewire.vehicles.create')/*->layout('layouts.app')*/;
     }
 }

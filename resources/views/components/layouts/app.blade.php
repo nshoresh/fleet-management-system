@@ -15,12 +15,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Improved layout styles -->
     <style>
-        /* Layout structure */
-        .app-container {
-            display: flex;
-            min-height: 100vh;
-            position: relative;
-        }
 
         /* Sidebar styles */
         .sidebar {
@@ -31,6 +25,13 @@
             overflow-y: auto;
             z-index: 40;
             transition: all 0.3s ease-in-out;
+        }
+
+        /* Layout structure */
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+            position: relative;
         }
 
         /* Main content area */
@@ -83,9 +84,9 @@
         }
     </style>
 </head>
+<body class="font-sans antialiased" :class="{ 'sidebar-open': sidebarOpen && isMobile }">  
 
-<body class="font-sans antialiased" :class="{ 'sidebar-open': sidebarOpen && isMobile }">
-    <div class="bg-gray-100 app-container" x-data="{
+    <div class="bg-gray-100 app-container flex h-screen overflow-hidden" x-data="{
         sidebarOpen: false,
         sidebarCollapsed: localStorage.getItem('sidebarCollapsed') === 'true',
         isMobile: window.innerWidth < 768,
@@ -130,6 +131,8 @@
                 'ml-0': isMobile
             }">
             <div class="relative">
+            <!-- Sticky Header for MIS Name -->
+            <x-header />
                 <!-- Mobile menu button (only visible on mobile) -->
                 <button x-show="isMobile" @click="sidebarOpen = !sidebarOpen" type="button"
                     class="fixed z-50 inline-flex items-center justify-center p-2 text-gray-400 rounded-md top-4 left-4 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
@@ -148,19 +151,11 @@
                     </svg>
                 </button>
 
-                @if (auth()->user()->isSystemUser())
-                    <!-- Global Search Bar -->
-                    <livewire:global-routes-search />
-                    <hr />
-                @endif
-
-                <!-- Page Heading -->
+                <!-- Optional Global Search / $header content -->
                 @if (isset($header))
-                    <header class="bg-white shadow">
-                        <div class="px-4 py-6 mx-auto sm:px-6 lg:px-8">
-                            {{ $header }}
-                        </div>
-                    </header>
+                    <div class="px-4 py-6 mx-auto sm:px-6 lg:px-8">
+                        {{ $header }}
+                    </div>
                 @endif
 
                 <!-- Page Content -->

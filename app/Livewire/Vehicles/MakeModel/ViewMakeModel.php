@@ -92,6 +92,6 @@ class ViewMakeModel extends Component
         return view('livewire.vehicles.make-model.view-make-model', [
             'makes' => $this->makes,
             'modelsCount' => $this->modelsCount,
-        ])->layout('layouts.app');
+        ])/*->layout('layouts.app')*/;
     }
 }

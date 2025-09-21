@@ -8,7 +8,7 @@ class VehiclesTable extends Component
 {
     public function render()
     {
-        return view('livewire.vehicles.vehicles-table')
-            ->layout('layouts.app');
+        return view('livewire.vehicles.vehicles-table');
+            //->layout('layouts.app');
     }
 }
